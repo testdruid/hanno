@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<!--
+* SCMXL state machine example
+* Navigates some of the links on the Wikipedia site
+*
+* @author Chris Struble
+-->
+
+<scxml xmlns="http://www.w3.org/2005/07/scxml"
+version="1.0"
+initialstate="reset">
+
+  <!-- Reset state seems to be required -->
+  <state id="reset">
+    <transition	event="start" target="root_state"/>
+  </state>
+
+  <!-- Root state to support global variables -->
+  <state id="root_state">
+    <onentry>
+      <var name="logged_in" expr="false"/>
+    </onentry>
+    <initial>
+      <transition target="wikipedia_main_state"/>
+    </initial>
+    
+    <!-- Wikipedia main page: http://en.wikipedia.org/wiki/Main_Page -->
+    <state id="wikipedia_main_state">
+      <transition event="wikipedia_main" 							target="wikipedia_main_state"/>
+      <transition event="portal_contents" 							target="portal_contents_state"/>
+      <transition event="wikipedia_about" 							target="wikipedia_about_state"/>
+	  <transition event="wikipedia_community" 						target="wikipedia_community_state"/>
+      <transition event="special_recent" 							target="special_recent_state"/>
+	  <transition event="help_contents" 						    target="help_contents_state"/>
+    </state>
+    
+    <!-- Wikipedia Contents page: http://en.wikipedia.org/wiki/Portal:Contents -->
+    <state id="portal_contents_state">
+      <transition event="wikipedia_main" 							target="wikipedia_main_state"/>
+      <transition event="portal_contents" 							target="portal_contents_state"/>
+      <transition event="wikipedia_about" 							target="wikipedia_about_state"/>
+	  <transition event="wikipedia_community" 						target="wikipedia_community_state"/>
+      <transition event="special_recent" 							target="special_recent_state"/>
+	  <transition event="help_contents" 						    target="help_contents_state"/>
+    </state>
+        
+    <!-- Wikipedia About page: http://en.wikipedia.org/wiki/Wikipedia:About -->
+    <state id="wikipedia_about_state">
+      <transition event="wikipedia_main" 							target="wikipedia_main_state"/>
+      <transition event="portal_contents" 							target="portal_contents_state"/>
+      <transition event="wikipedia_about" 							target="wikipedia_about_state"/>
+	  <transition event="wikipedia_community" 						target="wikipedia_community_state"/>
+      <transition event="special_recent" 							target="special_recent_state"/>
+	  <transition event="help_contents" 						    target="help_contents_state"/>
+    </state>
+    
+    <!-- Wikipedia Community page: http://en.wikipedia.org/wiki/Wikipedia:Community_Portal -->
+    <state id="wikipedia_community_state">
+      <transition event="wikipedia_main" 							target="wikipedia_main_state"/>
+      <transition event="portal_contents" 							target="portal_contents_state"/>
+      <transition event="wikipedia_about" 							target="wikipedia_about_state"/>
+	  <transition event="wikipedia_community" 						target="wikipedia_community_state"/>
+      <transition event="special_recent" 							target="special_recent_state"/>
+	  <transition event="help_contents" 						    target="help_contents_state"/>
+    </state>
+    
+    <!-- Wikipedia Recent Changes page: http://en.wikipedia.org/wiki/Special:Recentchanges -->
+    <state id="special_recent_state">
+      <transition event="wikipedia_main" 							target="wikipedia_main_state"/>
+      <transition event="portal_contents" 							target="portal_contents_state"/>
+      <transition event="wikipedia_about" 							target="wikipedia_about_state"/>
+	  <transition event="wikipedia_community" 						target="wikipedia_community_state"/>
+      <transition event="special_recent" 							target="special_recent_state"/>
+	  <transition event="help_contents" 						    target="help_contents_state"/>
+    </state>
+    
+    <!-- Wikipedia Help Contents page: http://en.wikipedia.org/wiki/Help:Contents -->
+    <state id="help_contents_state">
+      <transition event="wikipedia_main" 							target="wikipedia_main_state"/>
+      <transition event="portal_contents" 							target="portal_contents_state"/>
+      <transition event="wikipedia_about" 							target="wikipedia_about_state"/>
+	  <transition event="wikipedia_community" 						target="wikipedia_community_state"/>
+      <transition event="special_recent" 							target="special_recent_state"/>
+	  <transition event="help_contents" 						    target="help_contents_state"/>
+    </state>
+
+  </state>
+</scxml>

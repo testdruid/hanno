@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<project name="hanno" basedir="." default="execute">
+
+	<property name="src.dir" value="src/java" />
+	<property name="classes.dir" value="classes" />
+	<property name="doc.dir" value="doc" />
+	<property name="resources.dir" value="resources" />
+	<property name="jar.resources" value="${resources.dir}/jars" />
+	<property name="jar.externals" value="${resources.dir}/jars-external" />
+
+	<taskdef name="lint4j" classname="com.jutils.lint4j.ant.Lint4jAntTask">
+		<classpath>
+			<pathelement location="${jar.externals}/lint4j.jar" />
+		</classpath>
+	</taskdef>
+
+	<target name="clean" description="Delete all generated files">
+		<delete dir="${classes.dir}" failonerror="false" />
+		<delete dir="${doc.dir}" failonerror="false" />
+		<delete file="${ant.project.name}.jar" />
+	</target>
+
+	<target name="lint" description="Static code analysis" depends="clean">
+		<lint4j sourcepath="${src.dir}" packages="${ant.project.name}*,${ant.project.name}.engine.*,${ant.project.name}.examples.wikipedia.*">
+			<classpath>
+				<pathelement location="${src.dir}" />
+				<pathelement location="${jar.resources}/bsh.jar" />
+				<pathelement location="${jar.resources}/comfyj-2.4.jar" />
+				<pathelement location="${jar.resources}/jexplorer-1.9.jar" />
+				<pathelement location="${jar.resources}/jniwrap-3.6.1.jar" />
+				<pathelement location="${jar.resources}/junit-4.2.jar" />
+				<pathelement location="${jar.resources}/mshtml.jar" />
+				<pathelement location="${jar.resources}/nekohtml.jar" />
+				<pathelement location="${jar.resources}/resolver.jar" />
+				<pathelement location="${jar.resources}/serializer.jar" />
+				<pathelement location="${jar.resources}/watij.jar" />
+				<pathelement location="${jar.resources}/watijcom.jar" />
+				<pathelement location="${jar.resources}/winpack-3.6.jar" />
+				<pathelement location="${jar.resources}/xalan.jar" />
+				<pathelement location="${jar.resources}/xercesImpl.jar" />
+				<pathelement location="${jar.resources}/xml-apis.jar" />
+				<pathelement location="${jar.resources}/commons-beanutils.jar" />
+				<pathelement location="${jar.resources}/commons-beanutils-bean-collections.jar" />
+				<pathelement location="${jar.resources}/commons-beanutils-core.jar" />
+				<pathelement location="${jar.resources}/commons-digester-1.8.jar" />
+				<pathelement location="${jar.resources}/commons-el.jar" />
+				<pathelement location="${jar.resources}/commons-jexl-1.1.jar" />
+				<pathelement location="${jar.resources}/commons-logging-1.1.jar" />
+				<pathelement location="${jar.resources}/commons-logging-adapters-1.1.jar" />
+				<pathelement location="${jar.resources}/commons-logging-api-1.1.jar" />
+				<pathelement location="${jar.resources}/commons-scxml-0.6.jar" />
+			</classpath>
+			<formatters>
+				<formatter type="text" />
+			</formatters>
+		</lint4j>
+	</target>
+
+	<target name="java_compile" description="compile java code" depends="lint">
+		<mkdir dir="${classes.dir}" />
+		<javac srcdir="${src.dir}" destdir="${classes.dir}" source="1.5">
+			<classpath>
+				<pathelement location="${src.dir}" />
+				<pathelement location="${jar.resources}/bsh.jar" />
+				<pathelement location="${jar.resources}/comfyj-2.4.jar" />
+				<pathelement location="${jar.resources}/jexplorer-1.9.jar" />
+				<pathelement location="${jar.resources}/jniwrap-3.6.1.jar" />
+				<pathelement location="${jar.resources}/junit-4.2.jar" />
+				<pathelement location="${jar.resources}/mshtml.jar" />
+				<pathelement location="${jar.resources}/nekohtml.jar" />
+				<pathelement location="${jar.resources}/resolver.jar" />
+				<pathelement location="${jar.resources}/serializer.jar" />
+				<pathelement location="${jar.resources}/watij.jar" />
+				<pathelement location="${jar.resources}/watijcom.jar" />
+				<pathelement location="${jar.resources}/winpack-3.6.jar" />
+				<pathelement location="${jar.resources}/xalan.jar" />
+				<pathelement location="${jar.resources}/xercesImpl.jar" />
+				<pathelement location="${jar.resources}/xml-apis.jar" />
+				<pathelement location="${jar.resources}/commons-beanutils.jar" />
+				<pathelement location="${jar.resources}/commons-beanutils-bean-collections.jar" />
+				<pathelement location="${jar.resources}/commons-beanutils-core.jar" />
+				<pathelement location="${jar.resources}/commons-digester-1.8.jar" />
+				<pathelement location="${jar.resources}/commons-el.jar" />
+				<pathelement location="${jar.resources}/commons-jexl-1.1.jar" />
+				<pathelement location="${jar.resources}/commons-logging-1.1.jar" />
+				<pathelement location="${jar.resources}/commons-logging-adapters-1.1.jar" />
+				<pathelement location="${jar.resources}/commons-logging-api-1.1.jar" />
+				<pathelement location="${jar.resources}/commons-scxml-0.6.jar" />
+				<pathelement location="${classes.dir}" />
+			</classpath>
+		</javac>
+	</target>
+
+	<target name="compile" description="create distribution files" depends="java_compile">
+		<copy todir="${classes.dir}/${ant.project.name}/examples">
+			<fileset dir="${src.dir}/${ant.project.name}/examples" includes="**/*.xml" />
+		</copy>
+	</target>
+
+
+	<target name="doc" depends="compile">
+		<javadoc sourcepath="${src.dir}" destdir="${doc.dir}">
+			<packageset dir="${src.dir}">
+				<include name="${ant.project.name}/**" />
+			</packageset>
+			<classpath>
+				<pathelement location="${src.dir}" />
+				<pathelement location="${jar.resources}/bsh.jar" />
+				<pathelement location="${jar.resources}/comfyj-2.4.jar" />
+				<pathelement location="${jar.resources}/jexplorer-1.9.jar" />
+				<pathelement location="${jar.resources}/jniwrap-3.6.1.jar" />
+				<pathelement location="${jar.resources}/junit-4.2.jar" />
+				<pathelement location="${jar.resources}/mshtml.jar" />
+				<pathelement location="${jar.resources}/nekohtml.jar" />
+				<pathelement location="${jar.resources}/resolver.jar" />
+				<pathelement location="${jar.resources}/serializer.jar" />
+				<pathelement location="${jar.resources}/watij.jar" />
+				<pathelement location="${jar.resources}/watijcom.jar" />
+				<pathelement location="${jar.resources}/winpack-3.6.jar" />
+				<pathelement location="${jar.resources}/xalan.jar" />
+				<pathelement location="${jar.resources}/xercesImpl.jar" />
+				<pathelement location="${jar.resources}/xml-apis.jar" />
+				<pathelement location="${jar.resources}/commons-beanutils.jar" />
+				<pathelement location="${jar.resources}/commons-beanutils-bean-collections.jar" />
+				<pathelement location="${jar.resources}/commons-beanutils-core.jar" />
+				<pathelement location="${jar.resources}/commons-digester-1.8.jar" />
+				<pathelement location="${jar.resources}/commons-el.jar" />
+				<pathelement location="${jar.resources}/commons-jexl-1.1.jar" />
+				<pathelement location="${jar.resources}/commons-logging-1.1.jar" />
+				<pathelement location="${jar.resources}/commons-logging-adapters-1.1.jar" />
+				<pathelement location="${jar.resources}/commons-logging-api-1.1.jar" />
+				<pathelement location="${jar.resources}/commons-scxml-0.6.jar" />
+				<pathelement location="${classes.dir}" />
+			</classpath>
+		</javadoc>
+	</target>
+	
+	<target name="execute" description="run state machine" depends="doc">
+		<java fork="yes" classname="${ant.project.name}.engine.HannoRunner">
+			<classpath>
+				<pathelement location="${jar.resources}/bsh.jar" />
+				<pathelement location="${jar.resources}/comfyj-2.4.jar" />
+				<pathelement location="${jar.resources}/jexplorer-1.9.jar" />
+				<pathelement location="${jar.resources}/jniwrap-3.6.1.jar" />
+				<pathelement location="${jar.resources}/junit-4.2.jar" />
+				<pathelement location="${jar.resources}/mshtml.jar" />
+				<pathelement location="${jar.resources}/nekohtml.jar" />
+				<pathelement location="${jar.resources}/resolver.jar" />
+				<pathelement location="${jar.resources}/serializer.jar" />
+				<pathelement location="${jar.resources}/watij.jar" />
+				<pathelement location="${jar.resources}/watijcom.jar" />
+				<pathelement location="${jar.resources}/winpack-3.6.jar" />
+				<pathelement location="${jar.resources}/xalan.jar" />
+				<pathelement location="${jar.resources}/xercesImpl.jar" />
+				<pathelement location="${jar.resources}/xml-apis.jar" />
+				<pathelement location="${jar.resources}/commons-beanutils.jar" />
+				<pathelement location="${jar.resources}/commons-beanutils-bean-collections.jar" />
+				<pathelement location="${jar.resources}/commons-beanutils-core.jar" />
+				<pathelement location="${jar.resources}/commons-digester-1.8.jar" />
+				<pathelement location="${jar.resources}/commons-el.jar" />
+				<pathelement location="${jar.resources}/commons-jexl-1.1.jar" />
+				<pathelement location="${jar.resources}/commons-logging-1.1.jar" />
+				<pathelement location="${jar.resources}/commons-logging-adapters-1.1.jar" />
+				<pathelement location="${jar.resources}/commons-logging-api-1.1.jar" />
+				<pathelement location="${jar.resources}/commons-scxml-0.6.jar" />
+				<pathelement location="${classes.dir}" />
+			</classpath>
+		</java>
+	</target>
+
+</project>

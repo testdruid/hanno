@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="resources/jars/bsh.jar"/>
+	<classpathentry kind="lib" path="resources/jars/comfyj-2.4.jar"/>
+	<classpathentry kind="lib" path="resources/jars/commons-beanutils.jar"/>
+	<classpathentry kind="lib" path="resources/jars/commons-beanutils-bean-collections.jar"/>
+	<classpathentry kind="lib" path="resources/jars/commons-beanutils-core.jar"/>
+	<classpathentry kind="lib" path="resources/jars/commons-digester-1.8.jar"/>
+	<classpathentry kind="lib" path="resources/jars/commons-el.jar"/>
+	<classpathentry kind="lib" path="resources/jars/commons-jexl-1.1.jar"/>
+	<classpathentry kind="lib" path="resources/jars/commons-logging-1.1.jar"/>
+	<classpathentry kind="lib" path="resources/jars/commons-logging-adapters-1.1.jar"/>
+	<classpathentry kind="lib" path="resources/jars/commons-logging-api-1.1.jar"/>
+	<classpathentry kind="lib" path="resources/jars/commons-scxml-0.6.jar"/>
+	<classpathentry kind="lib" path="resources/jars/jexplorer-1.9.jar"/>
+	<classpathentry kind="lib" path="resources/jars/jniwrap-3.6.1.jar"/>
+	<classpathentry kind="lib" path="resources/jars/junit.jar"/>
+	<classpathentry kind="lib" path="resources/jars/junit-4.2.jar"/>
+	<classpathentry kind="lib" path="resources/jars/mshtml.jar"/>
+	<classpathentry kind="lib" path="resources/jars/nekohtml.jar"/>
+	<classpathentry kind="lib" path="resources/jars/resolver.jar"/>
+	<classpathentry kind="lib" path="resources/jars/serializer.jar"/>
+	<classpathentry kind="lib" path="resources/jars/watij.jar"/>
+	<classpathentry kind="lib" path="resources/jars/watijcom.jar"/>
+	<classpathentry kind="lib" path="resources/jars/winpack-3.6.jar"/>
+	<classpathentry kind="lib" path="resources/jars/xalan.jar"/>
+	<classpathentry kind="lib" path="resources/jars/xercesImpl.jar"/>
+	<classpathentry kind="lib" path="resources/jars/xml-apis.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
